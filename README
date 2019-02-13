@@ -30,7 +30,7 @@ if it doesn't work, idek. text me and i'll try to help you debug.
 4. test it out in your matlab code. somewhere - doesn't matter where - add this line:
 
 ```
-testMatlabConnection("ohai.txt", "sheila is the best sister ever")
+testCallingFromMatlab("ohai.txt", "sheila is the best sister ever")
 ```
 
 if this works, somewhere on your computer (probably in your working directory?) should be a file called `ohai.txt` that says something extremely true. if so, HOORAY, we have confirmed we can call C++ code from matlab! yay! feel free to experiment with generating other files and whatever.
