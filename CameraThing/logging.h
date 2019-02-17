@@ -13,23 +13,23 @@ using namespace std;
 // will probably speed up performance.
 bool LOG = true;
 
-void log(string output)
-{
-   if (!LOG)
-      return;
-   write(output);
-}
-
-void error(string output)
-{
-   write("ERROR: " + output);
-}
-
-void write(string output)
+void writeToLog(string output)
 {
    stringstream log;
    log << "[camera " << currentTime().c_str() << "] " << output.c_str() << "\n";
    mexPrintf(log.str().c_str());
+}
+
+void log(string output)
+{
+   if (!LOG)
+      return;
+   writeToLog(output);
+}
+
+void error(string output)
+{
+   writeToLog("ERROR: " + output);
 }
 
 #endif // !LOGGING_INCLUDED
