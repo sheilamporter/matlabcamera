@@ -2,6 +2,7 @@
 #define UTILS_INCLUDED
 
 #include <algorithm>
+#include <sstream>
 #include <string>
 #include <time.h>
 #include <Windows.h>
@@ -10,11 +11,27 @@
 
 using namespace std;
 
-static string dir = "";
+// change this to false if you don't want this to output log files.
+// will probably speed up performance.
+bool LOG = true;
 
-string outputDir()
+void writeToLog(string output)
 {
-   return dir;
+   stringstream log;
+   log << "[camera] " << output.c_str() << "\n";
+   mexPrintf(log.str().c_str());
+}
+
+void log(string output)
+{
+   if (!LOG)
+      return;
+   writeToLog(output);
+}
+
+void error(string output)
+{
+   writeToLog("ERROR: " + output);
 }
 
 string currentTime()
@@ -51,24 +68,24 @@ string getOutputDir(const mxArray *input)
    size_t buflen;
 
    /* input must be a string */
-   if (mxIsChar(prhs[3]) != 1)
+   if (mxIsChar(input) != 1)
    {
       error("camera_capture: output directory (4th argument) is not a string");
       return "";
    }
 
    /* input must be a row vector */
-   if (mxGetM(prhs[3]) != 1)
+   if (mxGetM(input) != 1)
    {
       error("camera_capture: output directory (4th argument) is not a vector");
       return "";
    }
 
    /* get the length of the input string */
-   buflen = (mxGetM(prhs[3]) * mxGetN(prhs[3])) + 1;
+   buflen = (mxGetM(input) * mxGetN(input)) + 1;
 
    /* copy the string data from prhs[0] into a C string input_ buf.    */
-   input_buf = mxArrayToString(prhs[3]);
+   input_buf = mxArrayToString(input);
 
    if (input_buf == NULL)
    {
@@ -79,6 +96,8 @@ string getOutputDir(const mxArray *input)
    string outputDir(input_buf);
 
    outputDir = sanitizeOutputDir(outputDir);
+
+   mxFree(input_buf);
 
    return outputDir;
 }

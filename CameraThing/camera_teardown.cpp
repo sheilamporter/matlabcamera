@@ -1,7 +1,7 @@
 //#include "uEye.h"
 #include "mex.h"
 
-#include "logging.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -17,11 +17,11 @@ void teardownCamera(const int cameraHandle)
    INT nRet = is_ExitCamera(&hCam);
    if (nRet != IS_SUCCESS)
    {
-      error("Camera failed to shut down with return code " + nRet);
+   error("Camera failed to shut down with return code " + nRet);
    }
    else
    {
-      log("...camera shut down successfully.");
+   log("...camera shut down successfully.");
    }
    */
 }

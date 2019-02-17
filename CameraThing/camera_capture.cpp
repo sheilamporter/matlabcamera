@@ -1,7 +1,7 @@
 //#include "uEye.h"
 #include "mex.h"
 
-#include "logging.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -71,6 +71,4 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
    }
 
    captureImage(cameraID, quality, frame, outputDir);
-
-   mxFree(input_buf);
 }
