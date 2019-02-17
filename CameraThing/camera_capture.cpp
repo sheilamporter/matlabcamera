@@ -1,3 +1,10 @@
+#include <iomanip>
+#include <sstream>
+
+// TEMPORARY - REMOVE THESE
+#include <iostream>
+#include <fstream>
+
 //#include "uEye.h"
 #include "mex.h"
 
@@ -11,6 +18,15 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
    logtext << "Capturing frame " << frame << "...";
    log(logtext.str());
 
+   stringstream filenamess;
+   filenamess << outputDir << setw(10) << setfill('0') << frame << ".jpg";
+
+   // TEMPORARY_REMOVE THIS
+   ofstream testfile;
+   testfile.open(filenamess.str());
+   testfile << "pretend i am a picture pls\n";
+   testfile.close();
+
    /*
    // capture image
    HIDS hCam = cameraHandle;
@@ -22,8 +38,6 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
    }
 
    // save image
-   stringstream filenamess;
-   filenamess << outputDir << setw(10) << setfill('0') << frame << ".jpg";
    std::wstring filename = std::wstring(filenamess.str().begin(), filenamess.str().end());
 
    IMAGE_FILE_PARAMS ImageFileParams;
