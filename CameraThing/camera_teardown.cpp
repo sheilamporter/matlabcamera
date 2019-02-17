@@ -1,3 +1,4 @@
+#include "uEye.h"
 #include "mex.h"
 
 #include "logging.h"
@@ -10,15 +11,12 @@ void teardownCamera(const int cameraHandle)
    logtext << "Tearing down camera with ID " << cameraHandle << "...";
    log(logtext.str());
 
-   /*
    // shut down camera
    HIDS hCam = cameraHandle;
    INT nRet = is_ExitCamera(&hCam);
-   */
-   //if (nRet != IS_SUCCESS)
-   if (false)
+   if (nRet != IS_SUCCESS)
    {
-      //error("Camera failed to shut down with return code " + nRet);
+      error("Camera failed to shut down with return code " + nRet);
    }
    else
    {
