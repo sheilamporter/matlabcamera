@@ -10,29 +10,44 @@
 * Copyright 1984-2011 The MathWorks, Inc.
 * All rights reserved.
 *=================================================================*/
+
+#include <fstream>
+#include <iostream>
+
 #include "mex.h"
+
+using namespace std;
+
+void testCallingFromMatlab(string filename, string contents)
+{
+   ofstream outfile;
+   outfile.open(filename);
+   outfile << contents.c_str() << '\n';
+   outfile.close();
+}
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-   int i;
-
-   /* Examine input (right-hand-side) arguments. */
-   mexPrintf("\nThere are %d right-hand-side argument(s).", nrhs);
-   for (i = 0; i < nrhs; i++)
+   if (!mxIsString(prhs[0]))
    {
-      mexPrintf("\n\tInput Arg %i is of type:\t%s ", i, mxGetClassName(prhs[i]));
+      mexPrintf("filename (first argument) needs to be a string");
+      return;
    }
 
-   /* Examine output (left-hand-side) arguments. */
-   mexPrintf("\n\nThere are %d left-hand-side argument(s).\n", nlhs);
-   if (nlhs > nrhs)
+   if (!mxIsString(prhs[1]))
    {
-      mexErrMsgIdAndTxt("MATLAB:mexfunction:inputOutputMismatch",
-         "Cannot specify more outputs than inputs.\n");
+      mexPrintf("file contents (second argument) needs to be a string");
+      return;
    }
+   
+   string filename = mxArrayToString(prhs[0]);
+   string contents = mxArrayToString(prhs[1]);
 
-   for (i = 0; i < nlhs; i++) {
-      plhs[i] = mxCreateDoubleMatrix(1, 1, mxREAL);
-      *mxGetPr(plhs[i]) = (double)mxGetNumberOfElements(prhs[i]);
-   }
+   testCallingFromMatlab(filename, contents);
+
+   // specify output if it's there
+   if (nlhs == 1)
+   {
+      plhs[0] = "heck yeah";
+   }   
 }
