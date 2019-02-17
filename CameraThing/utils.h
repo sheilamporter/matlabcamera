@@ -29,7 +29,7 @@ string currentTime()
    time_t now = time(0);
    struct tm tstruct;
    char buf[80];
-//#pragma warning(suppress : 4996)
+   //#pragma warning(suppress : 4996)
    tstruct = *localtime(&now);
    strftime(buf, sizeof(buf), "%F.%X", &tstruct);
    return buf;
@@ -45,7 +45,7 @@ void setupOutput()
    // WINDOWS WHY ARE YOU LIKE THIS
    //std::wstring stemp = std::wstring(outputDir.begin(), outputDir.end());
    //LPCWSTR sw = stemp.c_str();
-   LPCSTR s = outputDir.c_str
+   LPCSTR s = outputDir.c_str();
    CreateDirectory(s, NULL);
 }
 
