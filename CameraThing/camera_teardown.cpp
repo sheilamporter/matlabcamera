@@ -1,4 +1,4 @@
-#include "uEye.h"
+//#include "uEye.h"
 #include "mex.h"
 
 #include "logging.h"
