@@ -20,7 +20,6 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
 
    stringstream filenamess;
    filenamess << outputDir << setw(10) << setfill('0') << frame << ".jpg";
-   log("hey wtf");
 
    // TEMPORARY_REMOVE THIS
    ofstream testfile;
