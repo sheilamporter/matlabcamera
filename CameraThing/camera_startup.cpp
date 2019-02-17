@@ -4,7 +4,6 @@
 //#include "uEye.h"
 #include "mex.h"
 
-#include "state.h"
 #include "utils.h"
 
 using namespace std;
