@@ -20,7 +20,7 @@ void startupCamera(const int cameraHandle)
    // Open camera with provided ID
    // STOLEN FROM file:///C:/Program%20Files/IDS/uEye/Help/uEye_Manual/index.html?is_initcamera.html
    // (and greatly simplified)
-   HIDS hCam = cameraID;
+   HIDS hCam = cameraHandle;
    INT nRet = is_InitCamera(&hCam, NULL);
    if (nRet != IS_SUCCESS)
    {
@@ -62,7 +62,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
    if (nrhs != 1 || !mxIsDouble(prhs[0]))
    {
-      mexPrintf("startupCamera: you need to provide a double for the camera handle");
+      error("startupCamera: you need to provide a double for the camera handle");
       return;
    }
 

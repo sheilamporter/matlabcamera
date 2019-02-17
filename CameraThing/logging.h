@@ -17,11 +17,20 @@ void log(string output)
 {
    if (!LOG)
       return;
-   stringstream log;
-   log << "[" << currentTime().c_str() << "] " << output.c_str() << "\n";
-   mexPrintf(log.str().c_str());
+   write(output);
 }
 
+void error(string output)
+{
+   write("ERROR: " + output);
+}
+
+void write(string output)
+{
+   stringstream log;
+   log << "[camera " << currentTime().c_str() << "] " << output.c_str() << "\n";
+   mexPrintf(log.str().c_str());
+}
 
 #endif // !LOGGING_INCLUDED
 
