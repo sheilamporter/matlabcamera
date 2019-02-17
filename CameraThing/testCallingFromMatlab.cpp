@@ -28,26 +28,26 @@ void testCallingFromMatlab(string filename, string contents)
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-   if (!mxIsString(prhs[0]))
+   /*if (!mxIsChar(prhs[0]))
    {
-      mexPrintf("filename (first argument) needs to be a string");
-      return;
+   mexPrintf("filename (first argument) needs to be a string");
+   return;
    }
 
-   if (!mxIsString(prhs[1]))
+   if (!mxIsChar(prhs[1]))
    {
-      mexPrintf("file contents (second argument) needs to be a string");
-      return;
+   mexPrintf("file contents (second argument) needs to be a string");
+   return;
    }
-   
+
    string filename = mxArrayToString(prhs[0]);
-   string contents = mxArrayToString(prhs[1]);
+   string contents = mxArrayToString(prhs[1]);*/
 
-   testCallingFromMatlab(filename, contents);
+   testCallingFromMatlab("ohai.txt", "sheila is so good at computers");
 
    // specify output if it's there
-   if (nlhs == 1)
+   /*if (nlhs == 1)
    {
-      plhs[0] = "heck yeah";
-   }   
+   plhs[0] = "heck yeah";
+   }*/
 }
