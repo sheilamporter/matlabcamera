@@ -10,12 +10,13 @@
 
 using namespace std;
 
-void startupCamera(const int cameraHandle)
+void startupCamera(const int cameraHandle, const string outputDir)
 {
    stringstream logtext;
    logtext << "Starting up camera with ID " << cameraHandle << "...";
    log(logtext.str());
 
+   /*
    //---------------------------------------------------------------------------
    // Open camera with provided ID
    // STOLEN FROM file:///C:/Program%20Files/IDS/uEye/Help/uEye_Manual/index.html?is_initcamera.html
@@ -52,20 +53,37 @@ void startupCamera(const int cameraHandle)
       error("Failed to set display mode with return code " + nRet);
       return;
    }
+   */
 
    log("...camera started up successfully.");
+
+
+
+   outputDir = sanitizeOutputDir(outputDir);
+   createOutputDir(outputDir);
 }
 
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-   if (nrhs != 1 || !mxIsDouble(prhs[0]))
+   if (nrhs != 2)
    {
-      error("camera_startup: you need to provide a double for the camera handle");
+      error("camera_startup: you need to provide two arguments");
+   }
+
+   if (!mxIsDouble(prhs[0]))
+   {
+      error("camera_startup: you need to provide a double for the camera handle (first argument)");
       return;
    }
 
    int cameraID = (int)mxGetScalar(prhs[0]);
 
-   startupCamera(cameraID);
+   string outputDir = getOutputDir(prhs[1]);
+   if (outputDir.empty())
+   {
+      return;
+   }
+
+   startupCamera(cameraID, outputDir);
 }

@@ -11,6 +11,7 @@ void teardownCamera(const int cameraHandle)
    logtext << "Tearing down camera with ID " << cameraHandle << "...";
    log(logtext.str());
 
+   /*
    // shut down camera
    HIDS hCam = cameraHandle;
    INT nRet = is_ExitCamera(&hCam);
@@ -22,6 +23,7 @@ void teardownCamera(const int cameraHandle)
    {
       log("...camera shut down successfully.");
    }
+   */
 }
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
