@@ -70,14 +70,14 @@ string getOutputDir(const mxArray *input)
    /* input must be a string */
    if (mxIsChar(input) != 1)
    {
-      error("camera_capture: output directory (4th argument) is not a string");
+      error("output directory (4th argument) is not a string");
       return "";
    }
 
    /* input must be a row vector */
    if (mxGetM(input) != 1)
    {
-      error("camera_capture: output directory (4th argument) is not a vector");
+      error("output directory (4th argument) is not a vector");
       return "";
    }
 
@@ -89,7 +89,7 @@ string getOutputDir(const mxArray *input)
 
    if (input_buf == NULL)
    {
-      error("camera_capture: couldn't convert output directory to string");
+      error("couldn't convert output directory to string");
       return "";
    }
 

@@ -64,7 +64,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
    int quality = (int)mxGetScalar(prhs[1]);
    int frame = (int)mxGetScalar(prhs[2]);
 
-   string outputDir = getOutputDir(prhs[1]);
+   string outputDir = getOutputDir(prhs[3]);
    if (outputDir.empty())
    {
       return;
