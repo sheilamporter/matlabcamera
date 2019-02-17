@@ -35,17 +35,16 @@ string currentTime()
    return buf;
 }
 
-
-void setupOutput()
+string sanitizeOutputDir(string dir)
 {
-   // create output folder
-   string time = currentTime();
-   replace(time.begin(), time.end(), ':', '.');
-   string outputDir = "camerarun_" + time + "\\";
-   // WINDOWS WHY ARE YOU LIKE THIS
-   //std::wstring stemp = std::wstring(outputDir.begin(), outputDir.end());
-   //LPCWSTR sw = stemp.c_str();
-   LPCSTR s = outputDir.c_str();
+   replace(dir.begin(), dir.end(), ':', '.');
+   replace(dir.begin(), dir.end(), ' ', '_');
+   return dir + "\\";
+}
+
+void createOutputDir(string dir)
+{
+   LPCSTR s = dir.c_str();
    CreateDirectory(s, NULL);
 }
 
