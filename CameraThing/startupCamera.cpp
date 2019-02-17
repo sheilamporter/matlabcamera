@@ -9,17 +9,10 @@
 
 using namespace std;
 
-void startupCamera(const int cameraHandle, const int imageQuality)
+void startupCamera(const int cameraHandle)
 {
-   // cache stuff
-   cacheCameraID(cameraHandle);
-   cacheQuality(imageQuality);
-
-   setupOutput();
-
-   setupLog();
    stringstream logtext;
-   logtext << "Starting up camera with ID " << getCameraID() << " and quality " << getQuality() << "...";
+   logtext << "Starting up camera with ID " << cameraHandle << "...";
    log(logtext.str());
 
    /*
@@ -67,25 +60,12 @@ void startupCamera(const int cameraHandle, const int imageQuality)
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-   if (nrhs != 2)
+   if (nrhs != 1 || !mxIsDouble(prhs[0]))
    {
-      mexPrintf("startupCamera: you need to provide 2 arguments");
-   }
-
-   if (!mxIsDouble(prhs[0]))
-   {
-      mexPrintf("startupCamera: camera handle (first argument) needs to be a double\n");
-      return;
-   }
-
-   if (!mxIsDouble(prhs[1]))
-   {
-      mexPrintf("startupCamera: quality (second argument) needs to be a double\n");
-      return;
+      mexPrintf("startupCamera: you need to provide a double for the camera handle");
    }
 
    int cameraID = (int)mxGetScalar(prhs[0]);
-   int quality = (int)mxGetScalar(prhs[1]);
 
-   startupCamera(cameraID, quality);
+   startupCamera(cameraID);
 }
