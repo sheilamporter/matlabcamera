@@ -3,9 +3,9 @@
 
 using namespace std;
 
-int camera = -1;
-int quality = 0;
-int frame = 0;
+static int camera = -1;
+static int quality = 0;
+static int frame = 0;
 
 void clearAll()
 {

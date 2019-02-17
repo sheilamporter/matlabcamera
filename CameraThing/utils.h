@@ -8,7 +8,7 @@
 
 using namespace std;
 
-string dir = "";
+static string dir = "";
 
 string outputDir()
 {

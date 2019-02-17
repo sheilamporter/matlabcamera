@@ -72,20 +72,20 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       mexPrintf("startupCamera: you need to provide 2 arguments");
    }
 
-   if (!mxIsInt64(prhs[0]))
+   if (!mxIsDouble(prhs[0]))
    {
-      mexPrintf("startupCamera: camera handle (first argument) needs to be an integer");
+      mexPrintf("startupCamera: camera handle (first argument) needs to be a double\n");
       return;
    }
 
-   if (!mxIsInt64(prhs[1]))
+   if (!mxIsDouble(prhs[1]))
    {
-      mexPrintf("startupCamera: quality (second argument) needs to be an integer");
+      mexPrintf("startupCamera: quality (second argument) needs to be a double\n");
       return;
    }
 
-   int cameraID = (int)*mxGetPr(prhs[0]);
-   int quality = (int)*mxGetPr(prhs[1]);
+   int cameraID = (int)mxGetScalar(prhs[0]);
+   int quality = (int)mxGetScalar(prhs[1]);
 
    startupCamera(cameraID, quality);
 }

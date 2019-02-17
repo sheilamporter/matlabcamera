@@ -10,8 +10,8 @@ using namespace std;
 
 // change this to false if you don't want this to output log files.
 // will probably speed up performance.
-bool LOG = true;
-ofstream logfile;
+static bool LOG = true;
+static ofstream logfile;
 
 void setupLog()
 {
