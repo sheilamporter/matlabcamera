@@ -63,6 +63,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
    if (nrhs != 1 || !mxIsDouble(prhs[0]))
    {
       mexPrintf("startupCamera: you need to provide a double for the camera handle");
+      return;
    }
 
    int cameraID = (int)mxGetScalar(prhs[0]);
