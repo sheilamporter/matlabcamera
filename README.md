@@ -49,7 +49,7 @@ oh god this probably won't work. it probably won't even compile. whatever #yolo
 startupCamera(1, 80)
 ```
 
-where 1 is the "camera handle" (should be an integer) and 80 is the "quality" you want (should also be an integer, i have no idea what units it's using')
+where 1 is the "camera handle" (should be an integer) and 80 is the "quality" you want (should also be an integer, i have no idea what units it's using)
 
 2. ok now every time you wanna take a picture you're gonna want to call
 
