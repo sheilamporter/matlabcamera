@@ -43,9 +43,10 @@ void setupOutput()
    replace(time.begin(), time.end(), ':', '.');
    string outputDir = "camerarun_" + time + "\\";
    // WINDOWS WHY ARE YOU LIKE THIS
-   std::wstring stemp = std::wstring(outputDir.begin(), outputDir.end());
-   LPCWSTR sw = stemp.c_str();
-   CreateDirectory(sw, NULL);
+   //std::wstring stemp = std::wstring(outputDir.begin(), outputDir.end());
+   //LPCWSTR sw = stemp.c_str();
+   LPCSTR s = outputDir.c_str
+   CreateDirectory(s, NULL);
 }
 
 #endif //UTILS_INCLUDED

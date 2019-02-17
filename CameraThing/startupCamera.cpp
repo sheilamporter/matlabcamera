@@ -67,9 +67,9 @@ void startupCamera(const int cameraHandle, const int imageQuality)
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-   if (nprhs != 2)
+   if (nrhs != 2)
    {
-      mexprintf("startupCamera: you need to provide 2 arguments");
+      mexPrintf("startupCamera: you need to provide 2 arguments");
    }
 
    if (!mxIsInt64(prhs[0]))
