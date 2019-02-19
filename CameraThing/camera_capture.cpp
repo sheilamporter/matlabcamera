@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 
-//#include "uEye.h"
+#include "uEye.h"
 #include "mex.h"
 
 #include "utils.h"
@@ -41,9 +41,10 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
 
    // save image
    std::wstring filename = std::wstring(filenamess.str().begin(), filenamess.str().end());
+   wchar_t* filenameCstr = const_cast<wchar_t*>(filename.c_str());
 
    IMAGE_FILE_PARAMS ImageFileParams;
-   ImageFileParams.pwchFileName = filename.c_str();
+   ImageFileParams.pwchFileName = filenameCstr;
    ImageFileParams.nFileType = IS_IMG_JPG;
    ImageFileParams.nQuality = quality;
    nRet = is_ImageFile(hCam, IS_IMAGE_FILE_CMD_SAVE, (void*)&ImageFileParams, sizeof(ImageFileParams));
