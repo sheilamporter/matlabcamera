@@ -1,3 +1,9 @@
+% the 'build' script i wrote will compile the C++ code i wrote
+% run that script every time you get updated code from me.
+% you can add it at the beginning of your other scripts like this to be paranoid,
+% but it takes a good couple seconds so you might find that annoying.
+build
+
 % you'll have to determine the output folder name in matlab,
 % because every time you call a C++ function it's starting from scratch
 % and can't remember what it did last time.
