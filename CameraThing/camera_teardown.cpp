@@ -29,9 +29,9 @@ void teardownCamera(const int cameraHandle)
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-   if (nrhs != 1 || !mxIsDouble(prhs[0]))
+   if (nrhs != 1 || (!mxIsDouble(prhs[0]) && !mxIsInt32(prhs[0])))
    {
-      error("camera_teardown: you need to provide a double for the camera handle");
+      error("camera_teardown: you need to provide a number for the camera handle");
       return;
    }
 

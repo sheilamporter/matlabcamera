@@ -21,6 +21,10 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
    stringstream filenamess;
    filenamess << outputDir << setw(10) << setfill('0') << frame << ".jpg";
 
+   logtext.clear();
+   logtext << "filename: " << filenamess.str();
+   log(logtext.str());
+
    /*
    // TEMPORARY - REMOVE THIS
    ofstream testfile;
@@ -40,6 +44,10 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
       error(out.str());
       return;
    }
+   else
+   {
+      log("captured image");
+   }
 
    // save image
    std::wstring filename = std::wstring(filenamess.str().begin(), filenamess.str().end());
@@ -57,6 +65,10 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
       error(out.str());
       return;
    }
+   else
+   {
+      log("saved image");
+   }
    /**/
 
    log("...image captured.");
@@ -72,24 +84,26 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
    for (int i = 0; i < 3; ++i)
    {
-      if (!mxIsDouble(prhs[i]))
+      if (!mxIsDouble(prhs[i] && !mxIsInt32(prhs[i])))
       {
          stringstream s;
-         s << "camera_capture: argument " << i << " is not a double.";
+         s << "camera_capture: argument " << i << " is not a number.";
          error(s.str());
          return;
       }
    }
 
-   int cameraID = (int)mxGetScalar(prhs[0]);
-   int quality = (int)mxGetScalar(prhs[1]);
-   int frame = (int)mxGetScalar(prhs[2]);
+   int cameraID = (int) mxGetScalar(prhs[0]);
+   int quality = (int) mxGetScalar(prhs[1]);
+   int frame = (int) mxGetScalar(prhs[2]);
 
    string outputDir = getOutputDir(prhs[3]);
    if (outputDir.empty())
    {
       return;
    }
+
+   log("about to call captureImage");
 
    captureImage(cameraID, quality, frame, outputDir);
 }
