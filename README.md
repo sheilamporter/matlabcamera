@@ -46,4 +46,4 @@ You can now call the C++ functions in your Matlab code as if they were normal Ma
 
 ## 4. Run your Matlab code as usual.
 
-Note that by default, the camera code spits a bunch of stuff out to the Matlab command window. I did this to make it easier for me to diagnose issues in my code, but once we get all this working you might find this annoying. You can quiet it down by changing line 16 in `utils.h` to read `bool LOG = false` and running the `build.m` again. It'll still print errors, but it will stop yelling every time something works the way it's supposed to.
+Note that by default, the camera code spits a bunch of stuff out to the Matlab command window. I did this to make it easier for me to diagnose issues in my code, but once we get all this working you might find this annoying. You can quiet it down by changing line 16 in `utils.h` to read `bool LOG = false;` and running `build.m` again. It'll still print errors, but it will stop yelling every time something works the way it's supposed to.
