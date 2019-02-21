@@ -17,7 +17,9 @@ void teardownCamera(const int cameraHandle)
    INT nRet = is_ExitCamera(hCam);
    if (nRet != IS_SUCCESS)
    {
-      error("Camera failed to shut down with return code " + nRet);
+      stringstream out;
+      out << "Camera failed to shut down with return code " << nRet;
+      error(out.str());
       return;
    }
    /**/

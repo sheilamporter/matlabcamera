@@ -30,7 +30,9 @@ void startupCamera(const int cameraHandle, const string outputDir)
       }
       else
       {
-         log("ERROR: Camera failed to start up with return code " + nRet);
+         stringstream out;
+         out << "ERROR: Camera failed to start up with return code " << nRet;
+         error(out.str());
       }
       return;
    }
@@ -40,7 +42,9 @@ void startupCamera(const int cameraHandle, const string outputDir)
    nRet = is_SetDisplayMode(hCam, IS_SET_DM_DIRECT3D);
    if (nRet != IS_SUCCESS)
    {
-      error("Failed to set display mode with return code " + nRet);
+      stringstream out;
+      out << "Failed to set display mode with return code " << nRet;
+      error(out.str());
       return;
    }
 
@@ -48,7 +52,9 @@ void startupCamera(const int cameraHandle, const string outputDir)
    nRet = is_SetExternalTrigger(hCam, IS_SET_TRIGGER_SOFTWARE);
    if (nRet != IS_SUCCESS)
    {
-      error("Failed to set display mode with return code " + nRet);
+      stringstream out;
+      out << "Failed to set trigger mode with return code " << nRet;
+      error(out.str());
       return;
    }
    /**/
