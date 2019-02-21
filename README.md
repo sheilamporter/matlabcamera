@@ -1,70 +1,49 @@
-# TESTING CALLING C++ FROM MATLAB
+# HOW TO USE THIS CODE IN MATLAB
 
-okay so in theory this is how it should work. i'm basing this off of https://www.mathworks.com/help/matlab/ref/mex.html some of this is matlab jargon that i'm assuming you know, or at least know how to google, because i have no idea what it means.
+## 1. Get all your files in order
 
-1. create a writeable folder on your path and set it as the current folder. i'm assuming you can call it whatever you want. example:
+You're gonna need the following files in whatever folder you're working in:
 
-```
-[s,msg,msgid] = mkdir('c:\work');
-if (isempty(msgid))
-    mkdir('c:\work')
-end
-cd c:\work
-```
+* `build.m`
+* `camera_capture.cpp`
+* `camera_startup.cpp`
+* `camera_teardown.cpp`
+* `uEye.h`
+* `uEye_api_64.lib`
+* `utils.h`
 
-2. download the file CameraThing/CameraThing.cpp from github to this folder you just created.
+## 2. Compile the C++ code
 
-3. build a 'MEX' file from this .cpp file using the `mex` command:
+Use Matlab to run `build.m` to build all the C++ files into a format Matlab can work with. You'll need to run this once each time the C++ code changes.
 
-```
-mex CameraThing.cpp
-```
-
-if it works, it should apparently say something like:
+If it works correctly, you should see output like this:
 
 ```
-Building with 'MinGW64 Compiler  C '.
+>>>Building camera_startup.cpp
+Building with 'MinGW64 Compiler (C++)'.
+MEX completed successfully.
+>>>Building camera_capture.cpp
+Building with 'MinGW64 Compiler (C++)'.
+MEX completed successfully.
+>>>Building camera_teardown.cpp
+Building with 'MinGW64 Compiler (C++)'.
 MEX completed successfully.
 ```
 
-if it doesn't work, idek. text me and i'll try to help you debug.
+If you don't see this and get a bunch of scary errors in red, text me. I'll fix it.
 
-4. test it out in your matlab code. somewhere - doesn't matter where - add this line:
+This should generate three files (or update them, if they already exist):
 
-```
-testCallingFromMatlab("ohai.txt", "sheila is the best sister ever")
-```
+* `camera_capture.mexw64`
+* `camera_startup.mexw64`
+* `camera_teardown.mexw64`
 
-if this works, somewhere on your computer (probably in your working directory?) should be a file called `ohai.txt` that says something extremely true. if so, HOORAY, we have confirmed we can call C++ code from matlab! yay! feel free to experiment with generating other files and whatever.
+You'll need these too.
 
-i will continue working on code to actually, like, do things with a camera! but this is sort of prerequisite numero uno, so i figured you can work on that bit while i'm doing other stuff. efficiency! heck yeah!
+## 3. Write your Matlab code
 
-# CALLING ACTUAL CAMERA CODE
+You can now call the C++ functions in your Matlab code as if they were normal Matlab functions. Check `demo.m` for more details and examples.
 
-oh god this probably won't work. it probably won't even compile. whatever #yolo
+## 4. Run your Matlab code as usual.
 
-1. ok so first thing is at the beginning of your program you're gonna want to call
-
-```
-startupCamera(1, 80)
-```
-
-where 1 is the "camera handle" (should be an integer) and 80 is the "quality" you want (should also be an integer, i have no idea what units it's using)
-
-2. ok now every time you wanna take a picture you're gonna want to call
-
-```
-captureImage()
-```
-
-this will probably block while it's capturing/saving the image so uh. you might notice things slow down. sorry
-
-3. and then when you're done you're gonna want to clean everything up all nice like
-
-```
-teardownCamera()
-```
-
-what does this do? idk lol
-
-LET'S SEE WHAT FUCKIN HAPPENS BRO
+Note that by default, the camera code spits a bunch of stuff out to the Matlab command window. I did this to make it easier for me to diagnose issues in my code, but once we get all this working you might find this annoying. You can quiet it down by changing line 16 in `utils.h` to read `bool LOG = false` and running the `build.m` again. It'll still print errors, but it will stop yelling every time something works the way it's supposed to.

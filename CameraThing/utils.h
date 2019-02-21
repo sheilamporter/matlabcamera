@@ -11,8 +11,8 @@
 
 using namespace std;
 
-// change this to false if you don't want this to output log files.
-// will probably speed up performance.
+// change this to 'false' if you don't want camera code to output debug logs.
+// it will still output errors.
 bool LOG = true;
 
 void writeToLog(string output)
@@ -106,6 +106,7 @@ void createOutputDir(string dir)
 {
    LPCSTR s = dir.c_str();
    CreateDirectory(s, NULL);
+   // TODO: error if this fails??
 }
 
 #endif //UTILS_INCLUDED
