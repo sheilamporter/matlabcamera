@@ -84,7 +84,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
    for (int i = 0; i < 3; ++i)
    {
-      if (!mxIsDouble(prhs[i] && !mxIsInt32(prhs[i])))
+      if (!mxIsDouble(prhs[i]) && !mxIsInt32(prhs[i]))
       {
          stringstream s;
          s << "camera_capture: argument " << i << " is not a number.";
