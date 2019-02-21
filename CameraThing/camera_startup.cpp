@@ -26,12 +26,12 @@ void startupCamera(const int cameraHandle, const string outputDir)
       //Check if GigE uEye SE needs a new starter firmware
       if (nRet == IS_STARTER_FW_UPLOAD_NEEDED)
       {
-         log("ERROR: Camera failed to start up because it requires a firmware update.");
+         log("Camera failed to start up because it requires a firmware update.");
       }
       else
       {
          stringstream out;
-         out << "ERROR: Camera failed to start up with return code " << nRet;
+         out << "Camera failed to start up with return code " << nRet;
          error(out.str());
       }
       return;
