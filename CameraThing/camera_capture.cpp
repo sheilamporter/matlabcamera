@@ -21,7 +21,7 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
    stringstream filenamess;
    filenamess << outputDir << setw(10) << setfill('0') << frame << ".jpg";
 
-   logtext.clear();
+   logtext.str("");
    logtext << "filename: " << filenamess.str();
    log(logtext.str());
 
@@ -50,14 +50,23 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
    }
 
    // save image
+   log("string nonsense 1");
    std::wstring filename = std::wstring(filenamess.str().begin(), filenamess.str().end());
+   log("string nonsense 2");
    wchar_t* filenameCstr = const_cast<wchar_t*>(filename.c_str());
+   log("string nonsense 3");
 
+   log("file params 1");
    IMAGE_FILE_PARAMS ImageFileParams;
+   log("file params 2");
    ImageFileParams.pwchFileName = filenameCstr;
+   log("file params 3");
    ImageFileParams.nFileType = IS_IMG_JPG;
+   log("file params 4");
    ImageFileParams.nQuality = quality;
+   log("file params 5");
    nRet = is_ImageFile(hCam, IS_IMAGE_FILE_CMD_SAVE, (void*)&ImageFileParams, sizeof(ImageFileParams));
+   log("file params 6");
    if (nRet != IS_SUCCESS)
    {
       stringstream out;
