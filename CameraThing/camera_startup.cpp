@@ -8,18 +8,16 @@
 
 using namespace std;
 
-void startupCamera(const int cameraHandle, const string outputDir)
+int startupCamera(const string outputDir)
 {
-   stringstream logtext;
-   logtext << "Starting up camera with ID " << cameraHandle << "...";
-   log(logtext.str());
+   log("Starting up camera...");
 
    /**/
    //---------------------------------------------------------------------------
    // Open camera with provided ID
    // STOLEN FROM file:///C:/Program%20Files/IDS/uEye/Help/uEye_Manual/index.html?is_initcamera.html
    // (and greatly simplified)
-   HIDS hCam = cameraHandle;
+   HIDS hCam;
    INT nRet = is_InitCamera(&hCam, NULL);
    if (nRet != IS_SUCCESS)
    {
@@ -34,7 +32,13 @@ void startupCamera(const int cameraHandle, const string outputDir)
          out << "Camera failed to start up with return code " << nRet;
          error(out.str());
       }
-      return;
+      return -1;
+   }
+   else
+   {
+      stringstream out;
+      out << "Camera successfully initialized camera with handle " << hCam;
+      log(out.str());
    }
    //---------------------------------------------------------------------------
 
@@ -45,7 +49,7 @@ void startupCamera(const int cameraHandle, const string outputDir)
       stringstream out;
       out << "Failed to set display mode with return code " << nRet;
       error(out.str());
-      return;
+      return -1;
    }
 
    // set trigger mode
@@ -55,36 +59,42 @@ void startupCamera(const int cameraHandle, const string outputDir)
       stringstream out;
       out << "Failed to set trigger mode with return code " << nRet;
       error(out.str());
-      return;
+      return -1;
    }
    /**/
 
    log("...camera started up successfully.");
 
    createOutputDir(outputDir);
+
+   return hCam;
 }
 
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-   if (nrhs != 2)
+   if (nrhs != 1)
    {
-      error("camera_startup: you need to provide two arguments");
+      error("camera_startup: you need to provide the output directory");
    }
 
-   if (!mxIsDouble(prhs[0]))
+   if (nlhs != 1)
    {
-      error("camera_startup: you need to provide a double for the camera handle (first argument)");
-      return;
+      error("camera_startup: you need to assign the output of this function to a variable");
    }
 
-   int cameraID = (int)mxGetScalar(prhs[0]);
-
-   string outputDir = getOutputDir(prhs[1]);
+   string outputDir = getOutputDir(prhs[0]);
    if (outputDir.empty())
    {
       return;
    }
 
-   startupCamera(cameraID, outputDir);
+   // create 1x1 integer for camera handle output
+   plhs[0] = mxCreateNumericMatrix(1, 1, mxINT32_CLASS, mxREAL);
+
+   // fill in plhs[0] to contain my data
+   int* data = (int*)mxGetData(plhs[0]);
+
+   // starts up camera, creates output directory, and returns camera handle
+   data[0] = startupCamera(outputDir);
 }
