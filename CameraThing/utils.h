@@ -34,12 +34,8 @@ void error(string output)
    writeToLog("ERROR: " + output);
 }
 
-void tryLogMoreDetails(int errorCode, int cameraHandle)
+void tryLogMoreDetails(int cameraHandle, int errorCode)
 {
-   stringstream output;
-   output << "trying to log more details " << errorCode << " - " << IS_GENERIC_ERROR;
-   log(output.str());
-
    if (errorCode == IS_NO_SUCCESS)
    {
       char* errorString;

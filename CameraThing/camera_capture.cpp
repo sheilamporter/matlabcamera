@@ -19,7 +19,7 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
    log(logtext.str());
 
    wstringstream filenamess;
-   filenamess << /*outputDir <<*/ setw(10) << setfill('0') << frame << L".jpg";
+   //filenamess << /*outputDir <<*/ setw(10) << setfill('0') << frame << L".jpg";
 
    //logtext.str("");
    //logtext << "filename: " << filenamess.str();
@@ -53,6 +53,7 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
    // save image
    log("string nonsense 1");
    //std::wstring filename = std::wstring(filenamess.str().begin(), filenamess.str().end());
+   std::wstring filename(L"fakefilename.jpg");
    log("string nonsense 2");
    //wchar_t* filenameCstr = const_cast<wchar_t*>(filename.c_str());
    log("string nonsense 3");
@@ -105,9 +106,9 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       }
    }
 
-   int cameraID = (int) mxGetScalar(prhs[0]);
-   int quality = (int) mxGetScalar(prhs[1]);
-   int frame = (int) mxGetScalar(prhs[2]);
+   int cameraID = (int)mxGetScalar(prhs[0]);
+   int quality = (int)mxGetScalar(prhs[1]);
+   int frame = (int)mxGetScalar(prhs[2]);
 
    string outputDir = getOutputDir(prhs[3]);
    if (outputDir.empty())
