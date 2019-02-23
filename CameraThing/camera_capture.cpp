@@ -18,12 +18,12 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
    logtext << "Capturing frame " << frame << "...";
    log(logtext.str());
 
-   stringstream filenamess;
-   filenamess << outputDir << setw(10) << setfill('0') << frame << ".jpg";
+   wstringstream filenamess;
+   filenamess << /*outputDir <<*/ setw(10) << setfill('0') << frame << L".jpg";
 
-   logtext.str("");
-   logtext << "filename: " << filenamess.str();
-   log(logtext.str());
+   //logtext.str("");
+   //logtext << "filename: " << filenamess.str();
+   //log(logtext.str());
 
    /*
    // TEMPORARY - REMOVE THIS
@@ -42,6 +42,7 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
       stringstream out;
       out << "Failed to capture image with return code " << nRet;
       error(out.str());
+      tryLogMoreDetails(cameraHandle, nRet);
       return;
    }
    else
@@ -51,15 +52,16 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
 
    // save image
    log("string nonsense 1");
-   std::wstring filename = std::wstring(filenamess.str().begin(), filenamess.str().end());
+   //std::wstring filename = std::wstring(filenamess.str().begin(), filenamess.str().end());
    log("string nonsense 2");
-   wchar_t* filenameCstr = const_cast<wchar_t*>(filename.c_str());
+   //wchar_t* filenameCstr = const_cast<wchar_t*>(filename.c_str());
    log("string nonsense 3");
 
    log("file params 1");
    IMAGE_FILE_PARAMS ImageFileParams;
    log("file params 2");
-   ImageFileParams.pwchFileName = filenameCstr;
+   //ImageFileParams.pwchFileName = filenameCstr;
+   ImageFileParams.pwchFileName = const_cast<wchar_t*> (filenamess.str().c_str());
    log("file params 3");
    ImageFileParams.nFileType = IS_IMG_JPG;
    log("file params 4");
@@ -72,6 +74,7 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
       stringstream out;
       out << "Failed to save image with return code " << nRet;
       error(out.str());
+      tryLogMoreDetails(cameraHandle, nRet);
       return;
    }
    else

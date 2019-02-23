@@ -34,6 +34,23 @@ void error(string output)
    writeToLog("ERROR: " + output);
 }
 
+void tryLogMoreDetails(int errorCode, int cameraHandle)
+{
+   if (errorCode == IS_GENERIC_ERROR)
+   {
+      char* errorString;
+      int ret = is_GetError(cameraHandle, &errorCode, &errorString);
+      if (ret == IS_SUCCESS)
+      {
+         error(string(errorString));
+      }
+      else
+      {
+         error("Could not get more information about the error");
+      }
+   }
+}
+
 string currentTime()
 {
    // TODO: need millisecond precision here to really be useful

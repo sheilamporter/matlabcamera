@@ -31,6 +31,7 @@ int startupCamera(const string outputDir)
          stringstream out;
          out << "Camera failed to start up with return code " << nRet;
          error(out.str());
+         tryLogMoreDetails(hCam, nRet);
       }
       return -1;
    }
@@ -49,6 +50,7 @@ int startupCamera(const string outputDir)
       stringstream out;
       out << "Failed to set display mode with return code " << nRet;
       error(out.str());
+      tryLogMoreDetails(hCam, nRet);
       return -1;
    }
 
@@ -59,6 +61,7 @@ int startupCamera(const string outputDir)
       stringstream out;
       out << "Failed to set trigger mode with return code " << nRet;
       error(out.str());
+      tryLogMoreDetails(hCam, nRet);
       return -1;
    }
    /**/
