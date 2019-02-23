@@ -36,7 +36,11 @@ void error(string output)
 
 void tryLogMoreDetails(int errorCode, int cameraHandle)
 {
-   if (errorCode == IS_GENERIC_ERROR)
+   stringstream output;
+   output << "trying to log more details " << errorCode << " - " << IS_GENERIC_ERROR;
+   log(output.str());
+
+   if (errorCode == IS_NO_SUCCESS)
    {
       char* errorString;
       int ret = is_GetError(cameraHandle, &errorCode, &errorString);
