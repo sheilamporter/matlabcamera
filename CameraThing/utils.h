@@ -22,9 +22,9 @@ void writeToLog(string output)
    mexPrintf(log.str().c_str());
 }
 
-void log(string output)
+void log(string output, bool force = false)
 {
-   if (!LOG)
+   if (!LOG && !force)
       return;
    writeToLog(output);
 }
@@ -34,20 +34,23 @@ void error(string output)
    writeToLog("ERROR: " + output);
 }
 
-void tryLogMoreDetails(int cameraHandle, int errorCode)
+void tryLogDetails(int cameraHandle, int errorCode)
 {
    if (errorCode == IS_NO_SUCCESS)
    {
       char* errorString;
       int ret = is_GetError(cameraHandle, &errorCode, &errorString);
+      stringstream output;
+      output << "DETAILS: ";
       if (ret == IS_SUCCESS)
       {
-         error(string(errorString));
+         output << errorString;
       }
       else
       {
-         error("Could not get more information about the error");
+         output << "Could not get more information about the error";
       }
+      log(output.str(), true);
    }
 }
 

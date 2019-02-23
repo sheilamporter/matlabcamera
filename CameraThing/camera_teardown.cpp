@@ -20,7 +20,7 @@ void teardownCamera(const int cameraHandle)
       stringstream out;
       out << "Camera failed to shut down with return code " << nRet;
       error(out.str());
-      tryLogMoreDetails(cameraHandle, nRet);
+      tryLogDetails(cameraHandle, nRet);
       return;
    }
    /**/

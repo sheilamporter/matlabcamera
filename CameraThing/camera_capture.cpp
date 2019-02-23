@@ -42,7 +42,7 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
       stringstream out;
       out << "Failed to capture image with return code " << nRet;
       error(out.str());
-      tryLogMoreDetails(cameraHandle, nRet);
+      tryLogDetails(cameraHandle, nRet);
       return;
    }
    else
@@ -75,7 +75,7 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
       stringstream out;
       out << "Failed to save image with return code " << nRet;
       error(out.str());
-      tryLogMoreDetails(cameraHandle, nRet);
+      tryLogDetails(cameraHandle, nRet);
       return;
    }
    else
