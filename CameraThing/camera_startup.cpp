@@ -28,10 +28,7 @@ int startupCamera(const string outputDir)
       }
       else
       {
-         stringstream out;
-         out << "Camera failed to start up with return code " << nRet;
-         error(out.str());
-         tryLogDetails(hCam, nRet);
+         errorWithReturnCodeAndDetails(hCam, nRet, "Failed to initialize camera with return code ");
       }
       return -1;
    }
@@ -44,39 +41,21 @@ int startupCamera(const string outputDir)
    //---------------------------------------------------------------------------
 
    SENSORINFO sInfo;
-   nRet = is_GetSensorInfo(hCam, &sInfo);
-   if (nRet != IS_SUCCESS)
-   {
-      stringstream out;
-      out << "Failed to get sensor info with return code " << nRet;
-      error(out.str());
-      tryLogDetails(hCam, nRet);
-   }
-   else
-   {
-      stringstream out;
-      out << "Color mode is ";
-      if (sInfo.nColorMode == IS_COLORMODE_BAYER) out << "BAYER";
-      else if (sInfo.nColorMode == IS_COLORMODE_CBYCRY) out << "CBYCRY";
-      else out << "MONO8";
-      error(out.str());
-      tryLogDetails(hCam, nRet);
-   }
+   is_GetSensorInfo(hCam, &sInfo);
+   stringstream info;
+   info << "Color mode is ";
+   if (sInfo.nColorMode == IS_COLORMODE_BAYER) info << "BAYER";
+   else if (sInfo.nColorMode == IS_COLORMODE_CBYCRY) info << "CBYCRY";
+   else info << "MONO8";
+   log(info.str());
 
-   /*
    // set color mode
    nRet = is_SetColorMode(hCam, IS_CM_JPEG);
    if (nRet != IS_SUCCESS)
    {
-      stringstream out;
-      out << "Failed to set display mode with return code " << nRet;
-      error(out.str());
-      tryLogDetails(hCam, nRet);
+      errorWithReturnCodeAndDetails(hCam, nRet, "Failed to set color mode with return code ");
       return -1;
-   
-   
    }
-   */
 
    // TODO set AOI?
 
@@ -84,10 +63,7 @@ int startupCamera(const string outputDir)
    nRet = is_SetDisplayMode(hCam, IS_SET_DM_DIB);
    if (nRet != IS_SUCCESS)
    {
-      stringstream out;
-      out << "Failed to set display mode with return code " << nRet;
-      error(out.str());
-      tryLogDetails(hCam, nRet);
+      errorWithReturnCodeAndDetails(hCam, nRet, "Failed to set display mode with return code ");
       return -1;
    }
 
@@ -95,10 +71,7 @@ int startupCamera(const string outputDir)
    nRet = is_SetExternalTrigger(hCam, IS_SET_TRIGGER_SOFTWARE);
    if (nRet != IS_SUCCESS)
    {
-      stringstream out;
-      out << "Failed to set trigger mode with return code " << nRet;
-      error(out.str());
-      tryLogDetails(hCam, nRet);
+      errorWithReturnCodeAndDetails(hCam, nRet, "Failed to set trigger mode with return code ");
       return -1;
    }
    /**/
