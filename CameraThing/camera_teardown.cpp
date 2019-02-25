@@ -11,19 +11,14 @@ void teardownCamera(const int cameraHandle)
    logtext << "Tearing down camera with ID " << cameraHandle << "...";
    log(logtext.str());
 
-   /**/
    // shut down camera
    HIDS hCam = cameraHandle;
    INT nRet = is_ExitCamera(hCam);
    if (nRet != IS_SUCCESS)
    {
-      stringstream out;
-      out << "Camera failed to shut down with return code " << nRet;
-      error(out.str());
-      tryLogDetails(cameraHandle, nRet);
+      errorWithReturnCodeAndDetails(hCam, nRet, "Failed to shut down camera with return code ");
       return;
    }
-   /**/
 
    log("...camera shut down successfully.");
 }

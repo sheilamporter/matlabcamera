@@ -29,14 +29,6 @@ void log(string output, bool force = false)
    writeToLog(output);
 }
 
-void errorWithReturnCodeAndDetails(int cameraHandle, int returnCode, string text)
-{
-   stringstream output;
-   output << text << returnCode;
-   error(output.str());
-   tryLogDetails(cameraHandle, returnCode);
-}
-
 void error(string output)
 {
    writeToLog("ERROR: " + output);
@@ -60,6 +52,14 @@ void tryLogDetails(int cameraHandle, int errorCode)
       }
       log(output.str(), true);
    }
+}
+
+void errorWithReturnCodeAndDetails(int cameraHandle, int returnCode, string text)
+{
+   stringstream output;
+   output << text << returnCode;
+   error(output.str());
+   tryLogDetails(cameraHandle, returnCode);
 }
 
 string currentTime()
