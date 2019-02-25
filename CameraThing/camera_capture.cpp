@@ -1,10 +1,6 @@
 #include <iomanip>
 #include <sstream>
 
-// TEMPORARY - REMOVE THESE
-#include <iostream>
-#include <fstream>
-
 #include "uEye.h"
 #include "mex.h"
 
@@ -24,14 +20,6 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
    //logtext.str("");
    //logtext << "filename: " << filenamess.str();
    //log(logtext.str());
-
-   /*
-   // TEMPORARY - REMOVE THIS
-   ofstream testfile;
-   testfile.open(filenamess.str());
-   testfile << "pretend i am a picture pls\n";
-   testfile.close();
-   */
 
    /**/
    // capture image

@@ -38,13 +38,50 @@ int startupCamera(const string outputDir)
    else
    {
       stringstream out;
-      out << "Camera successfully initialized camera with handle " << hCam;
+      out << "Successfully initialized camera with handle " << hCam;
       log(out.str());
    }
    //---------------------------------------------------------------------------
 
+   SENSORINFO sInfo;
+   nRet = is_GetSensorInfo(hCam, &sInfo);
+   if (nRet != IS_SUCCESS)
+   {
+      stringstream out;
+      out << "Failed to get sensor info with return code " << nRet;
+      error(out.str());
+      tryLogDetails(hCam, nRet);
+   }
+   else
+   {
+      stringstream out;
+      out << "Color mode is ";
+      if (sInfo.nColorMode == IS_COLORMODE_BAYER) out << "BAYER";
+      else if (sInfo.nColorMode == IS_COLORMODE_CBYCRY) out << "CBYCRY";
+      else out << "MONO8";
+      error(out.str());
+      tryLogDetails(hCam, nRet);
+   }
+
+   /*
+   // set color mode
+   nRet = is_SetColorMode(hCam, IS_CM_JPEG);
+   if (nRet != IS_SUCCESS)
+   {
+      stringstream out;
+      out << "Failed to set display mode with return code " << nRet;
+      error(out.str());
+      tryLogDetails(hCam, nRet);
+      return -1;
+   
+   
+   }
+   */
+
+   // TODO set AOI?
+
    // set display mode
-   nRet = is_SetDisplayMode(hCam, IS_SET_DM_DIRECT3D);
+   nRet = is_SetDisplayMode(hCam, IS_SET_DM_DIB);
    if (nRet != IS_SUCCESS)
    {
       stringstream out;
