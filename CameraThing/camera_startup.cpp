@@ -40,6 +40,7 @@ int startupCamera(const string outputDir)
    }
    //---------------------------------------------------------------------------
 
+   // get info about camera
    SENSORINFO sInfo;
    is_GetSensorInfo(hCam, &sInfo);
    stringstream info;
@@ -49,8 +50,13 @@ int startupCamera(const string outputDir)
    else info << "MONO8";
    log(info.str());
 
+   // get color info
+   int bitsPerPixel;
+   int colorMode;
+   is_GetColorDepth(hCam, &bitsPerPixel, &colorMode);
+
    // set color mode
-   nRet = is_SetColorMode(hCam, IS_CM_JPEG);
+   nRet = is_SetColorMode(hCam, colorMode);
    if (nRet != IS_SUCCESS)
    {
       errorWithReturnCodeAndDetails(hCam, nRet, "Failed to set color mode with return code ");

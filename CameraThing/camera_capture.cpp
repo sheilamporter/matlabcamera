@@ -27,10 +27,7 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
    INT nRet = is_FreezeVideo(hCam, IS_WAIT);
    if (nRet != IS_SUCCESS)
    {
-      stringstream out;
-      out << "Failed to capture image with return code " << nRet;
-      error(out.str());
-      tryLogDetails(cameraHandle, nRet);
+      errorWithReturnCodeAndDetails(hCam, nRet, "Failed to capture image with return code ");
       return;
    }
    else
@@ -60,10 +57,7 @@ void captureImage(const int cameraHandle, const int quality, const int frame, co
    log("file params 6");
    if (nRet != IS_SUCCESS)
    {
-      stringstream out;
-      out << "Failed to save image with return code " << nRet;
-      error(out.str());
-      tryLogDetails(cameraHandle, nRet);
+      errorWithReturnCodeAndDetails(hCam, nRet, "Failed to save image with return code ");
       return;
    }
    else
